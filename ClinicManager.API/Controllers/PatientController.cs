@@ -13,21 +13,48 @@ namespace ClinicManager.API.Controllers
             _patientRepository = patientRepository;
         }
 
-        [HttpGet]
-        public IActionResult Get()
+        [HttpGet("")]
+        public async Task<IActionResult> Get()
         {
-            var patients = _patientRepository.GetAllAsync();
+            var patients = await _patientRepository.GetAllAsync();
 
             return Ok(patients);
         }
 
-        [HttpPost]
-        public void Post()
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
         {
-            var patient = new Patient("", "", DateTime.Now, "", "", "", "", "", "", "");
+            var patient = await _patientRepository.GetByIdAsync(id);
 
-            _patientRepository.AddAsync(patient);
+            return Ok(patient);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] Patient model)
+        {
+            await _patientRepository.AddAsync(model);
+
+            return Ok();
 
         }
+
+        [HttpPut("{id}")]
+        public IActionResult Put([FromBody] Patient model)
+        {
+            _patientRepository.Update(model);
+
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var patient = await _patientRepository.GetByIdAsync(id);
+
+            await _patientRepository.RemoveAsync(id);
+
+            return Ok();
+        }
+
     }
 }
