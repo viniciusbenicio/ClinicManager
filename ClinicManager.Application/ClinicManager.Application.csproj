@@ -16,4 +16,11 @@
     <ProjectReference Include="..\ClinicManager.Infrastructure\ClinicManager.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Commands\" />
+    <Folder Include="Queries\" />
+    <Folder Include="Validators\" />
+    <Folder Include="ViewModels\" />
+  </ItemGroup>
+
 </Project>
