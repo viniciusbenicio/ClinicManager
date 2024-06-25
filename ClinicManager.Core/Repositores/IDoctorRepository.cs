@@ -7,7 +7,7 @@ namespace ClinicManager.Core.Repositores
         Task<List<Doctor>> GetAllAsync();
         Task<Doctor> GetByIdAsync(int id);
         Task AddAsync(Doctor doctor);
-        void Update(Doctor doctor);
+        Task Update(Doctor doctor);
         Task SaveChangesAsync();
         Task<int> RemoveAsync(int id);
     }

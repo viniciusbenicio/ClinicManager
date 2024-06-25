@@ -27,9 +27,9 @@ namespace ClinicManager.Infrastructure.Persistence.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async void Update(Service service)
+        public async Task Update(Service service)
         {
-            _context.Services.Add(service);
+            _context.Services.Update(service);
             await SaveChangesAsync();
         }
 
