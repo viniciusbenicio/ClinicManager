@@ -1,6 +1,7 @@
 ﻿using ClinicManager.Core.Entities;
 using ClinicManager.Core.Repositores;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Metadata;
 
 namespace ClinicManager.Infrastructure.Persistence.Repositories
 {
@@ -47,5 +48,18 @@ namespace ClinicManager.Infrastructure.Persistence.Repositories
             return patient.Id;
         }
 
+        public async Task<Patient> GetByDocument(string document)
+        {
+            var patient = await _context.Patients.FirstOrDefaultAsync(x => x.Document == document);
+
+            return patient;
+        }
+
+        public async Task<Patient> GetByTelphone(string number)
+        {
+            var patient = await _context.Patients.FirstOrDefaultAsync(x => x.Telephone == number);
+
+            return patient;
+        }
     }
 }

@@ -56,5 +56,21 @@ namespace ClinicManager.API.Controllers
             return Ok();
         }
 
+        [HttpGet("document")]
+        public async Task<IActionResult> GetByDocument(string document)
+        {
+            var patient = await _patientRepository.GetByDocument(document);
+
+            return Ok(patient);
+        }
+
+        [HttpGet("telphone")]
+        public async Task<IActionResult> GetByTelphone(string number)
+        {
+            var patient = await _patientRepository.GetByTelphone(number);
+
+            return Ok(patient);
+        }
+
     }
 }
