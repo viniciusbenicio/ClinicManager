@@ -4,35 +4,34 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ClinicManager.Infrastructure.Persistence.Repositories
 {
-    public class PatientRepository : IPatientRepository
+    public class ServiceRepository : IServiceRepository
     {
         private readonly ClinicManagerDBContext _context;
-        public PatientRepository(ClinicManagerDBContext context)
+        public ServiceRepository(ClinicManagerDBContext context)
         {
             _context = context;
         }
 
-        public async Task<List<Patient>> GetAllAsync()
+        public async Task<List<Service>> GetAllAsync()
         {
-            return await _context.Patients.ToListAsync();
+            return await _context.Services.ToListAsync();
         }
 
-        public async Task<Patient> GetByIdAsync(int id)
+        public async Task<Service> GetByIdAsync(int id)
         {
-            return await _context.Patients.FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Services.FirstOrDefaultAsync(x => x.Id == id);
         }
-        public async Task AddAsync(Patient patient)
+        public async Task AddAsync(Service service)
         {
-            await _context.Patients.AddAsync(patient);
+            await _context.Services.AddAsync(service);
             await _context.SaveChangesAsync();
         }
 
-        public async void Update(Patient patient)
+        public async void Update(Service service)
         {
-            _context.Patients.Add(patient);
+            _context.Services.Add(service);
             await SaveChangesAsync();
         }
-
 
         public async Task SaveChangesAsync()
         {
@@ -41,11 +40,10 @@ namespace ClinicManager.Infrastructure.Persistence.Repositories
 
         public async Task<int> RemoveAsync(int id)
         {
-            var patient = await _context.Patients.FirstOrDefaultAsync(x => x.Id == id);
+            var service = await _context.Services.FirstOrDefaultAsync(x => x.Id == id);
             await SaveChangesAsync();
 
-            return patient.Id;
+            return service.Id;
         }
-
     }
 }

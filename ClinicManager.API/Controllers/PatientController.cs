@@ -1,11 +1,10 @@
 ﻿using ClinicManager.Core.Entities;
 using ClinicManager.Core.Repositores;
-using ClinicManager.Infrastructure.Persistence.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClinicManager.API.Controllers
 {
-    [Route("api/Patient")]
+    [Route("api/patients")]
     public class PatientController : ControllerBase
     {
         private readonly IPatientRepository _patientRepository;

@@ -4,35 +4,34 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ClinicManager.Infrastructure.Persistence.Repositories
 {
-    public class PatientRepository : IPatientRepository
+    public class CareRepository : ICareRepository
     {
         private readonly ClinicManagerDBContext _context;
-        public PatientRepository(ClinicManagerDBContext context)
+        public CareRepository(ClinicManagerDBContext context)
         {
             _context = context;
         }
 
-        public async Task<List<Patient>> GetAllAsync()
+        public async Task<List<Care>> GetAllAsync()
         {
-            return await _context.Patients.ToListAsync();
+            return await _context.Care.ToListAsync();
         }
 
-        public async Task<Patient> GetByIdAsync(int id)
+        public async Task<Care> GetByIdAsync(int id)
         {
-            return await _context.Patients.FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Care.FirstOrDefaultAsync(x => x.Id == id);
         }
-        public async Task AddAsync(Patient patient)
+        public async Task AddAsync(Care care)
         {
-            await _context.Patients.AddAsync(patient);
+            await _context.Care.AddAsync(care);
             await _context.SaveChangesAsync();
         }
 
-        public async void Update(Patient patient)
+        public async void Update(Care care)
         {
-            _context.Patients.Add(patient);
+            _context.Care.Add(care);
             await SaveChangesAsync();
         }
-
 
         public async Task SaveChangesAsync()
         {
@@ -41,11 +40,10 @@ namespace ClinicManager.Infrastructure.Persistence.Repositories
 
         public async Task<int> RemoveAsync(int id)
         {
-            var patient = await _context.Patients.FirstOrDefaultAsync(x => x.Id == id);
+            var care = await _context.Care.FirstOrDefaultAsync(x => x.Id == id);
             await SaveChangesAsync();
 
-            return patient.Id;
+            return care.Id;
         }
-
     }
 }
