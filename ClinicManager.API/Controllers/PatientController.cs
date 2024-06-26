@@ -1,5 +1,11 @@
-﻿using ClinicManager.Core.Entities;
-using ClinicManager.Core.Repositores;
+﻿using ClinicManager.Application.Commands.CreatePatient;
+using ClinicManager.Application.Commands.DeletePatient;
+using ClinicManager.Application.Commands.UpdatePatient;
+using ClinicManager.Application.Queries.GetAllPatients;
+using ClinicManager.Application.Queries.GetByDocumentPatient;
+using ClinicManager.Application.Queries.GetByIdPatient;
+using ClinicManager.Application.Queries.GetByTelphonePatient;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClinicManager.API.Controllers
@@ -7,16 +13,18 @@ namespace ClinicManager.API.Controllers
     [Route("api/patients")]
     public class PatientController : ControllerBase
     {
-        private readonly IPatientRepository _patientRepository;
-        public PatientController(IPatientRepository patientRepository)
+        private readonly IMediator _mediator;
+        public PatientController(IMediator mediator)
         {
-            _patientRepository = patientRepository;
+            _mediator = mediator;
         }
 
         [HttpGet("")]
         public async Task<IActionResult> Get()
         {
-            var patients = await _patientRepository.GetAllAsync();
+            var query = new GetAllPatientsQuery();
+
+            var patients = await _mediator.Send(query);
 
             return Ok(patients);
         }
@@ -24,24 +32,26 @@ namespace ClinicManager.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var patient = await _patientRepository.GetByIdAsync(id);
+            var query = new GetByIdPatientQuery(id);
+
+            var patient = await _mediator.Send(query);
 
             return Ok(patient);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Patient model)
+        public async Task<IActionResult> Post([FromBody] CreatePatientCommand command)
         {
-            await _patientRepository.AddAsync(model);
+            var id = await _mediator.Send(command);
 
-            return Ok();
+            return Ok(id);
 
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put([FromBody] Patient model)
+        public async Task<IActionResult> Put([FromBody] UpdatePatientCommand command)
         {
-            _patientRepository.Update(model);
+            await _mediator.Send(command);
 
             return Ok();
         }
@@ -49,17 +59,19 @@ namespace ClinicManager.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var patient = await _patientRepository.GetByIdAsync(id);
+            var command = new DeletePatientCommand(id);
 
-            await _patientRepository.RemoveAsync(id);
+            await _mediator.Send(command);
 
-            return Ok();
+            return NoContent();
         }
 
         [HttpGet("document")]
         public async Task<IActionResult> GetByDocument(string document)
         {
-            var patient = await _patientRepository.GetByDocument(document);
+            var query = new GetByDocumentPatientQuery(document);
+
+            var patient = await _mediator.Send(query);
 
             return Ok(patient);
         }
@@ -67,7 +79,9 @@ namespace ClinicManager.API.Controllers
         [HttpGet("telphone")]
         public async Task<IActionResult> GetByTelphone(string number)
         {
-            var patient = await _patientRepository.GetByTelphone(number);
+            var query = new GetByTelephonePatientQuery(number);
+
+            var patient = await _mediator.Send(query);
 
             return Ok(patient);
         }

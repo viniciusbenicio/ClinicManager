@@ -14,6 +14,7 @@
             Height = height;
             Weight = weight;
             Address = address;
+            Active = true;
         }
 
         public string FirstName { get; private set; }
@@ -26,5 +27,25 @@
         public string Height { get; private set; }
         public string Weight { get; private set; }
         public string Address { get; private set; }
+        public bool Active { get; private set; }
+
+        public void Update(string firstName, string lastName, DateTime dateOfBirth, string telephone, string email, string document, string bloodtype, string height, string weight, string address)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            DateOfBirth = dateOfBirth;
+            Telephone = telephone;
+            Email = email;
+            Document = document;
+            Bloodtype = bloodtype;
+            Height = height;
+            Weight = weight;
+            Address = address;
+        }
+
+        public void Remove()
+        {
+            Active = false;
+        }
     }
 }

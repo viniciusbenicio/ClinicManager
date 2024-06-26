@@ -1,3 +1,4 @@
+using ClinicManager.Application.Commands.CreatePatient;
 using ClinicManager.Core.Repositores;
 using ClinicManager.Infrastructure;
 using ClinicManager.Infrastructure.Persistence.Repositories;
@@ -15,6 +16,8 @@ builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 builder.Services.AddScoped<ICareRepository, CareRepository>();
 builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
 builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
+
+builder.Services.AddMediatR(opt => opt.RegisterServicesFromAssemblyContaining(typeof(CreatePatientCommand)));
 
 builder.Services.AddDbContext<ClinicManagerDBContext>(options =>
 {
