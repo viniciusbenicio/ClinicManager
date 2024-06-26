@@ -1,5 +1,9 @@
-﻿using ClinicManager.Core.Entities;
-using ClinicManager.Core.Repositores;
+﻿using ClinicManager.Application.Commands.CreateCare;
+using ClinicManager.Application.Commands.DeleteCare;
+using ClinicManager.Application.Commands.UpdateCare;
+using ClinicManager.Application.Queries.GetAllCares;
+using ClinicManager.Application.Queries.GetByIdCare;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClinicManager.API.Controllers
@@ -7,16 +11,18 @@ namespace ClinicManager.API.Controllers
     [Route("api/cares")]
     public class CareController : ControllerBase
     {
-        private readonly ICareRepository _careRepository;
-        public CareController(ICareRepository careRepository)
+        private readonly IMediator _mediator;
+        public CareController(IMediator mediator)
         {
-            _careRepository = careRepository;
+            _mediator = mediator;
         }
 
         [HttpGet("")]
         public async Task<IActionResult> Get()
         {
-            var cares = await _careRepository.GetAllAsync();
+            var query = new GetAllCaresQuery();
+
+            var cares = await _mediator.Send(query);
 
             return Ok(cares);
         }
@@ -24,24 +30,25 @@ namespace ClinicManager.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var care = await _careRepository.GetByIdAsync(id);
+            var query = new GetByIdCareQuery(id);
+
+            var care = await _mediator.Send(query);
 
             return Ok(care);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Care model)
+        public async Task<IActionResult> Post([FromBody] CreateCareCommand command)
         {
-            await _careRepository.AddAsync(model);
+            var id = await _mediator.Send(command);
 
-            return Ok();
-
+            return Ok(id);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put([FromBody] Care model)
+        public async Task<IActionResult> Put([FromBody] UpdateCareCommand command)
         {
-            _careRepository.Update(model);
+            await _mediator.Send(command);
 
             return Ok();
         }
@@ -49,11 +56,12 @@ namespace ClinicManager.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var Care = await _careRepository.GetByIdAsync(id);
 
-            await _careRepository.RemoveAsync(id);
+            var command = new DeleteCareCommand(id);
 
-            return Ok();
+            await _mediator.Send(command);
+
+            return NoContent();
         }
 
     }
