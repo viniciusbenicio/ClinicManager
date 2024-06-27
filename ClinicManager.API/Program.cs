@@ -1,14 +1,20 @@
+using ClinicManager.API.Extensions;
+using ClinicManager.API.Filters;
+using ClinicManager.Application.Validators;
 using ClinicManager.Infrastructure;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddControllers(opt => opt.Filters.Add(typeof(ValidatorFilter))).AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreatePatientCommandValidator>());
 
-builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddInfrastructure();
+builder.Services.AddMediatR();
 
 
 builder.Services.AddDbContext<ClinicManagerDBContext>(options =>

@@ -21,8 +21,4 @@
     <ProjectReference Include="..\ClinicManager.Core\ClinicManager.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Filters\" />
-  </ItemGroup>
-
 </Project>
