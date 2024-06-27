@@ -1,4 +1,6 @@
-﻿namespace ClinicManager.Core.Entities
+﻿using System.ComponentModel.Design;
+
+namespace ClinicManager.Core.Entities
 {
     public class Doctor : Entity
     {
@@ -16,6 +18,7 @@
             Address = address;
             Specialty = specialty;
             CRMRegistration = cRMRegistration;
+            Active = true;
         }
 
         public string FirstName { get; private set; }
@@ -30,6 +33,28 @@
         public string Address { get; private set; }
         public string Specialty { get; private set; }
         public string CRMRegistration { get; private set; }
+        public bool Active { get; private set; }
+
+        public void Update(string firstName, string lastName, DateTime dateOfBirth, string telephone, string email, string document, string bloodtype, string height, string weight, string address, string specialty, string cRMRegistration)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            DateOfBirth = dateOfBirth;
+            Telephone = telephone;
+            Email = email;
+            Document = document;
+            Bloodtype = bloodtype;
+            Height = height;
+            Weight = weight;
+            Address = address;
+            Specialty = specialty;
+            CRMRegistration = cRMRegistration;
+        }
+
+        public void Remove()
+        {
+            Active = false; 
+        }
 
     }
 }
