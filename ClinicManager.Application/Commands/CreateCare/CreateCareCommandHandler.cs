@@ -13,7 +13,7 @@ namespace ClinicManager.Application.Commands.CreateCare
         }
         public async Task<int> Handle(CreateCareCommand request, CancellationToken cancellationToken)
         {
-            var care = new Care(request.PatientId, request.ServiceId, request.MedicalId, request.Healthinsurance, request.Start, request.End, request.TypeService);
+            var care = new Care(request.PatientId, request.ServiceId, request.MedicalId, request.Healthinsurance, request.Start, request.End.Value, request.TypeService);
 
             await _careRepository.AddAsync(care);
             await _careRepository.SaveChangesAsync();
