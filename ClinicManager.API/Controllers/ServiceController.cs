@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ClinicManager.API.Controllers
 {
     [Route("api/services")]
+    [ApiController]
     public class ServiceController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -19,7 +20,7 @@ namespace ClinicManager.API.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet("")]
+        [HttpGet]
         public async Task<IActionResult> Get()
         {
             var query = new GetAllServicesQuery();
@@ -40,7 +41,7 @@ namespace ClinicManager.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] CreateServiceCommand command)
+        public async Task<IActionResult> Post(CreateServiceCommand command)
         {
             var id = await _mediator.Send(command);
 
@@ -49,7 +50,7 @@ namespace ClinicManager.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put([FromBody] UpdateServiceCommand command)
+        public async Task<IActionResult> Put(UpdateServiceCommand command)
         {
             await _mediator.Send(command);
 

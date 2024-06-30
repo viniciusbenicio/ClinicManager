@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ClinicManager.API.Controllers
 {
     [Route("api/doctors")]
+    [ApiController]
     public class DoctorController : ControllerBase
     {
         private readonly IMediator _mediator;
