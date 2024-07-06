@@ -16,7 +16,7 @@ namespace ClinicManager.Application.Queries.GetByIdCare
         {
             var care = await _careRepository.GetByIdAsync(request.Id);
 
-            var careViewModels = new CareViewModel(care.PatientId, care.ServiceId, care.MedicalId, care.Healthinsurance, care.Start, care.End, care.TypeService);
+            var careViewModels = new CareViewModel(care.PatientId, care.ServiceId, care.DoctorId, care.Healthinsurance, care.Start, care.End, care.TypeService);
 
             return careViewModels;
         }

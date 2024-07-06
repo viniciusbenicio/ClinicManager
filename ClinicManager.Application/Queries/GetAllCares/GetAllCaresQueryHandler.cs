@@ -15,7 +15,7 @@ namespace ClinicManager.Application.Queries.GetAllCares
         {
             var cares = await _careRepository.GetAllAsync();
 
-            var caresViewModel = cares.Where(l => l.Active == true).Select(c => new CareViewModel(c.PatientId, c.ServiceId, c.MedicalId, c.Healthinsurance, c.Start, c.End, c.TypeService)).ToList();
+            var caresViewModel = cares.Where(l => l.Active == true).Select(c => new CareViewModel(c.PatientId, c.ServiceId, c.DoctorId, c.Healthinsurance, c.Start, c.End, c.TypeService)).ToList();
 
             return caresViewModel;
 

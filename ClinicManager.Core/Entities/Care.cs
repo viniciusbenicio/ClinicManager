@@ -2,11 +2,11 @@
 {
     public class Care : Entity
     {
-        public Care(int patientId, int serviceId, int medicalId, string healthinsurance, DateTime start, DateTime end, int typeService)
+        public Care(int patientId, int serviceId, int doctorId, string healthinsurance, DateTime start, DateTime end, int typeService)
         {
             PatientId = patientId;
             ServiceId = serviceId;
-            MedicalId = medicalId;
+            DoctorId = doctorId;
             Healthinsurance = healthinsurance;
             Start = start;
             End = end;
@@ -16,18 +16,21 @@
 
         public int PatientId { get; private set; }
         public int ServiceId { get; private set; }
-        public int MedicalId { get; private set; }
+        public int DoctorId { get; private set; }
         public string Healthinsurance { get; private set; }
         public DateTime Start { get; private set; }
         public DateTime End { get; private set; }
         public int TypeService { get; private set; }
         public bool Active { get; private set; }
+        public Patient Patient { get; private set; }
+        public Service Service { get; private set; }
+        public Doctor Doctor { get; private set; }
 
-        public void Update(int patientId, int serviceId, int medicalId, string healthinsurance, DateTime start, DateTime end, int typeService)
+        public void Update(int patientId, int serviceId, int doctorId, string healthinsurance, DateTime start, DateTime end, int typeService)
         {
             PatientId = patientId;
             ServiceId = serviceId;
-            MedicalId = medicalId;
+            DoctorId = doctorId;
             Healthinsurance = healthinsurance;
             Start = start;
             End = end;
