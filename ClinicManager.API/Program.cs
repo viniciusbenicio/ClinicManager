@@ -13,8 +13,7 @@ builder.Services.AddControllers(opt => opt.Filters.Add(typeof(ValidatorFilter)))
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddInfrastructure();
-builder.Services.AddMediatR();
+builder.Services.AddInfrastructure().AddApplication();
 
 
 builder.Services.AddDbContext<ClinicManagerDBContext>(options =>

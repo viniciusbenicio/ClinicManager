@@ -8,6 +8,13 @@ namespace ClinicManager.API.Extensions
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
+            services.AddRepositories();
+
+            return services;
+        }
+
+        public static IServiceCollection AddRepositories(this IServiceCollection services)
+        {
             services.AddScoped<IPatientRepository, PatientRepository>();
             services.AddScoped<ICareRepository, CareRepository>();
             services.AddScoped<IDoctorRepository, DoctorRepository>();
@@ -16,7 +23,14 @@ namespace ClinicManager.API.Extensions
             return services;
         }
 
-        public static IServiceCollection AddMediatR(this IServiceCollection services)
+        public static IServiceCollection AddApplication(this IServiceCollection services)
+        {
+            services.AddHandlers();
+
+            return services;
+        }
+
+        public static IServiceCollection AddHandlers(this IServiceCollection services)
         {
             services.AddMediatR(opt => opt.RegisterServicesFromAssemblyContaining(typeof(CreatePatientCommand)));
 
