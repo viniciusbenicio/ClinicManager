@@ -1,5 +1,6 @@
 ﻿using ClinicManager.Application.Commands.CreatePatient;
 using ClinicManager.Core.Repositores;
+using ClinicManager.Core.Services.Email;
 using ClinicManager.Infrastructure.Persistence.Repositories;
 
 namespace ClinicManager.API.Extensions
@@ -19,6 +20,13 @@ namespace ClinicManager.API.Extensions
             services.AddScoped<ICareRepository, CareRepository>();
             services.AddScoped<IDoctorRepository, DoctorRepository>();
             services.AddScoped<IServiceRepository, ServiceRepository>();
+
+            return services;
+        }
+
+        public static IServiceCollection AddServices(this IServiceCollection services)
+        {
+            services.AddTransient<IEmailService, EmailService>();
 
             return services;
         }

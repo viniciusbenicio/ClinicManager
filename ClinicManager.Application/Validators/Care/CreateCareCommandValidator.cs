@@ -69,8 +69,7 @@ namespace ClinicManager.Application.Validators.Care
 
                 RuleFor(p => p.End)
                     .GreaterThan(p => p.Start)
-                    .WithMessage("A Data de Término deve ser maior que a Data de Início")
-                    .When(p => p.End.HasValue);
+                    .WithMessage("A Data de Término deve ser maior que a Data de Início");
 
                 RuleFor(p => p.TypeService)
                     .NotEmpty()
@@ -80,3 +79,4 @@ namespace ClinicManager.Application.Validators.Care
             }
         }
     }
+}

@@ -1,6 +1,7 @@
 using ClinicManager.API.Extensions;
 using ClinicManager.API.Filters;
 using ClinicManager.Application.Validators.Patient;
+using ClinicManager.Core.Entities;
 using ClinicManager.Infrastructure;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +14,7 @@ builder.Services.AddControllers(opt => opt.Filters.Add(typeof(ValidatorFilter)))
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddInfrastructure().AddApplication();
+builder.Services.AddInfrastructure().AddApplication().AddServices();
 
 
 builder.Services.AddDbContext<ClinicManagerDBContext>(options =>
@@ -25,6 +26,10 @@ builder.Services.AddDbContext<ClinicManagerDBContext>(options =>
 
 
 var app = builder.Build();
+
+var smtp = new Configuration.SmtpConfiguracao();
+app.Configuration.GetSection("Smtp").Bind(smtp);
+Configuration.Smtp = smtp;
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
