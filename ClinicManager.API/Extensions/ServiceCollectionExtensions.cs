@@ -1,7 +1,9 @@
 ﻿using ClinicManager.Application.Commands.CreatePatient;
 using ClinicManager.Core.Repositores;
+using ClinicManager.Core.Services.Calendar;
 using ClinicManager.Core.Services.Email;
 using ClinicManager.Infrastructure.Persistence.Repositories;
+using ClinicManager.Infrastructure.Persistence.Services.Calendar;
 
 namespace ClinicManager.API.Extensions
 {
@@ -27,6 +29,7 @@ namespace ClinicManager.API.Extensions
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
             services.AddTransient<IEmailService, EmailService>();
+            services.AddTransient<ICalendarServices, CalendarServices>();
 
             return services;
         }

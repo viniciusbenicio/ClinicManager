@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Credential\cred.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MediatR" Version="12.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.6">
@@ -19,6 +23,10 @@
   <ItemGroup>
     <ProjectReference Include="..\ClinicManager.Application\ClinicManager.Application.csproj" />
     <ProjectReference Include="..\ClinicManager.Core\ClinicManager.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Credential\cred.json" />
   </ItemGroup>
 
 </Project>
