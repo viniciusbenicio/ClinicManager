@@ -8,11 +8,7 @@ namespace ClinicManager.Application.Validators.Service
     {
         public CreateServiceCommandValidator()
         {
-            RuleFor(p => p.Name)
-                .NotEmpty()
-                .WithMessage("O Nome é obrigatório")
-                .MaximumLength(30)
-                .WithMessage("O Nome deve conter no máximo 30 caracteres");
+          
 
             RuleFor(p => p.Description)
                 .MaximumLength(100)
