@@ -4,6 +4,7 @@ using ClinicManager.Application.Validators.Patient;
 using ClinicManager.Core.Entities;
 using ClinicManager.Infrastructure;
 using FluentValidation.AspNetCore;
+using Hangfire;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,9 +24,18 @@ builder.Services.AddDbContext<ClinicManagerDBContext>(options =>
 
 });
 
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
+builder.Services.AddHangfire((sp, config) =>
+{
+    config.UseSqlServerStorage(connectionString);
+});
+
+builder.Services.AddHangfireServer();
 
 var app = builder.Build();
+
+app.UseHangfireDashboard();
 
 var smtp = new Configuration.SmtpConfiguracao();
 app.Configuration.GetSection("Smtp").Bind(smtp);
