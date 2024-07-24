@@ -15,10 +15,6 @@ API para gerenciar uma clinica (cadastro de Atendimento/Serviços), utilizando C
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
 - [Instalação](#instalação)
 - [Como Usar](#como-usar)
-- [Rotas da API](#rotas-da-api)
-  - [Emprestimos](#emprestimos)
-  - [Livros](#livros)
-  - [Usuarios](#usuarios)
 - [Saiba Mais - Next Wave Education](#saiba-mais)
 - [Contato](#contato)
 
