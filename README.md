@@ -47,7 +47,7 @@ A API utiliza autenticação JWT para proteger os endpoints. Para acessar os end
 
 
 
-No projeto GerenciadorLivro, implementamos um controlador para gerenciar operações de livros, empréstimos e usuários com autenticação e autorização adequadas. Confira:
+No projeto ClinicManager, implementamos um controlador para gerenciar operações de Atendimento, Médico , Serviço e Paciente Confira:
 
 #### 📖 Operações com Atendimento
 
@@ -114,7 +114,7 @@ Acesse em seu navegador: `http://localhost:44380`.
 
 ## Saiba Mais - Next Wave Education
 
-- Com o Método .NET do Luis Felipe [@luisLinkedin](https://www.linkedin.com/in/luisdeol/), enfrentamos constantes desafios na plataforma, estimulando-nos a praticar o que aprendemos. Um desses desafios consistiu no desenvolvimento do Projeto 1: Gerenciador de Biblioteca.
+- Com o Método .NET do Luis Felipe [@luisLinkedin](https://www.linkedin.com/in/luisdeol/), enfrentamos constantes desafios na plataforma, estimulando-nos a praticar o que aprendemos. Um desses desafios consistiu no desenvolvimento do Projeto 5: Gerenciador de Clinica.
 - Além do desenvolvimento básico, foram propostos desafios extras para impulsionar nosso aprendizado, como:
 - Agendamento enviado por E-mail e Calendário. (Feito)
 - Background Service notificação. (Em Desenvolvimento)
