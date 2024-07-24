@@ -1,4 +1,5 @@
 ﻿using ClinicManager.Application.Commands.CreatePatient;
+using ClinicManager.Application.Job;
 using ClinicManager.Core.Repositores;
 using ClinicManager.Core.Services.Calendar;
 using ClinicManager.Core.Services.Email;
@@ -22,6 +23,7 @@ namespace ClinicManager.API.Extensions
             services.AddScoped<ICareRepository, CareRepository>();
             services.AddScoped<IDoctorRepository, DoctorRepository>();
             services.AddScoped<IServiceRepository, ServiceRepository>();
+            services.AddScoped<IJobRepository, JobRepository>();
 
             return services;
         }
@@ -30,6 +32,7 @@ namespace ClinicManager.API.Extensions
         {
             services.AddTransient<IEmailService, EmailService>();
             services.AddTransient<ICalendarServices, CalendarServices>();
+            services.AddTransient<MeuJob>();
 
             return services;
         }
