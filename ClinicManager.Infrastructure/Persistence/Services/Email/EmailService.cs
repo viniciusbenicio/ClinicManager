@@ -6,7 +6,7 @@ namespace ClinicManager.Core.Services.Email
 {
     public class EmailService : IEmailService
     {
-        public bool Send(string toName, string toEmail, string subject, string consultaDescricao, string fromName = "", string fromEmail = "")
+        public bool Send(string toName, string toEmail, string subject, string bodyMail, string date, string fromName = "", string fromEmail = "")
         {
             var smtpClient = new SmtpClient(Configuration.Smtp.Host, Configuration.Smtp.Port)
             {
@@ -63,8 +63,9 @@ namespace ClinicManager.Core.Services.Email
             <h1>Consulta Agendada</h1>
             <p>Olá <strong>{toName}</strong>,</p>
             <p>Sua consulta está agendada com sucesso.</p>
+            <p><strong>Data da consulta:</strong> {date}</p>
             <p><strong>Descrição da consulta:</strong></p>
-            <p>{consultaDescricao}</p>
+            <p>{bodyMail}</p>
             <p>Se você tiver alguma dúvida, por favor, entre em contato conosco.</p>
             <p>Atenciosamente,<br>
             <strong>{fromName}</strong><br>
