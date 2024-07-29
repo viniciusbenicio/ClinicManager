@@ -31,13 +31,13 @@ namespace ClinicManager.Application.Commands.CreateCare
             var care = new Care(request.PatientId, request.ServiceId, request.MedicalId, request.Healthinsurance, request.Start, request.Start.AddMinutes(service.Duration), (int)request.TypeService);
             var patient = await _patientRepository.GetByIdAsync(request.PatientId);
             var doctor = await _doctorRepository.GetByIdAsync(request.MedicalId);
-            _emailService.Send(patient.FirstName, patient.Email, service.Name, service.Description, doctor.FirstName, doctor.Email);
+            _emailService.Send(patient.FirstName, patient.Email, service.Name, service.Description, request.Start.ToString(), doctor.FirstName, doctor.Email);
 
             if (request.TypeService is TypeServiceENUM.Online)
             {
                 var scheduled = new GoogleCalendarDTO
                 {
-                    Summary = "Sua Consulta medica",
+                    Summary = service.Name,
                     Description = service.Description,
                     Location = "Clinic Manager",
                     Start = request.Start,
