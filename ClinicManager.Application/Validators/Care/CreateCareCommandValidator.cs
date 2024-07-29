@@ -29,14 +29,10 @@ namespace ClinicManager.Application.Validators.Care
                 .NotEmpty()
                 .WithMessage("A Data de Início é obrigatória");
 
-            RuleFor(p => p.End)
-                .GreaterThan(p => p.Start)
-                .WithMessage("A Data de Término deve ser maior que a Data de Início")
-                .When(p => p.End.HasValue);
-
-            RuleFor(p => p.TypeService)
-                .NotEmpty()
-                .WithMessage("O Tipo de Serviço é obrigatório");
+            
+            //RuleFor(p => p.TypeService)
+            //    .NotEmpty()
+            //    .WithMessage("O Tipo de Serviço é obrigatório");
 
 
         }

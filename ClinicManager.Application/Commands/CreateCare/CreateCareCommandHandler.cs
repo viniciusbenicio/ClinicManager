@@ -1,5 +1,6 @@
 ﻿using ClinicManager.Core.DTOs;
 using ClinicManager.Core.Entities;
+using ClinicManager.Core.Enums;
 using ClinicManager.Core.Repositores;
 using ClinicManager.Core.Services.Calendar;
 using ClinicManager.Core.Services.Email;
@@ -26,13 +27,13 @@ namespace ClinicManager.Application.Commands.CreateCare
         }
         public async Task<int> Handle(CreateCareCommand request, CancellationToken cancellationToken)
         {
-            var care = new Care(request.PatientId, request.ServiceId, request.MedicalId, request.Healthinsurance, request.Start, request.End.Value, request.TypeService);
+            var service = await _serviceRepository.GetByIdAsync(request.ServiceId);
+            var care = new Care(request.PatientId, request.ServiceId, request.MedicalId, request.Healthinsurance, request.Start, request.Start.AddMinutes(service.Duration), (int)request.TypeService);
             var patient = await _patientRepository.GetByIdAsync(request.PatientId);
             var doctor = await _doctorRepository.GetByIdAsync(request.MedicalId);
-            var service = await _serviceRepository.GetByIdAsync(request.ServiceId);
-            bool sent = _emailService.Send(patient.FirstName, patient.Email, service.Name ,service.Description, doctor.FirstName, doctor.Email);
+            _emailService.Send(patient.FirstName, patient.Email, service.Name, service.Description, doctor.FirstName, doctor.Email);
 
-            if(sent is true)
+            if (request.TypeService is TypeServiceENUM.Online)
             {
                 var scheduled = new GoogleCalendarDTO
                 {
@@ -45,7 +46,6 @@ namespace ClinicManager.Application.Commands.CreateCare
 
                 await _calendarServices.CreateGoogleCalendar(scheduled);
             }
-
 
             await _careRepository.AddAsync(care);
             await _careRepository.SaveChangesAsync();
