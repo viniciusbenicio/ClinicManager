@@ -1,13 +1,12 @@
-﻿using Dapper;
+﻿using ClinicManager.Core.DTOs;
+using ClinicManager.Core.Repositores;
+using Dapper;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using System.Data;
 
 namespace ClinicManager.Infrastructure.Persistence.Repositories
 {
-    public interface IJobRepository
-    {
-        List<Job> GetAllJobs();
-    }
 
     public class JobRepository : IJobRepository
     {
@@ -18,22 +17,12 @@ namespace ClinicManager.Infrastructure.Persistence.Repositories
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
-        public List<Job> GetAllJobs()
+        public List<CareDTO> GetConsultationNext12Hours()
         {
             using var connection = new SqlConnection(_connectionString);
-            return connection.Query<Job>("SELECT * FROM HangFire.Job").ToList();
+            var result = connection.Query<CareDTO>("GetConsultationNext12Hours", commandType: CommandType.StoredProcedure).ToList();
+            return result;
         }
-    }
 
-    public class Job
-    {
-        public long Id { get; set; }
-        public long? StateId { get; set; }
-        public string? StateName { get; set; }
-        public string? InvocationData { get; set; }
-        public string? Arguments { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime? ExpiresAt { get; set; }
     }
-
 }

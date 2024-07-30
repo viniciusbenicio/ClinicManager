@@ -1,5 +1,6 @@
 using ClinicManager.API.Extensions;
 using ClinicManager.API.Filters;
+using ClinicManager.Application.Job;
 using ClinicManager.Application.Validators.Patient;
 using ClinicManager.Core.Entities;
 using ClinicManager.Infrastructure;
@@ -36,6 +37,9 @@ builder.Services.AddHangfireServer();
 var app = builder.Build();
 
 app.UseHangfireDashboard();
+
+RecurringJob.AddOrUpdate<NotificationEmailTask>("job-send-notification", jb => jb.Execute(), "*/1 * * * *");
+
 
 var smtp = new Configuration.SmtpConfiguracao();
 app.Configuration.GetSection("Smtp").Bind(smtp);

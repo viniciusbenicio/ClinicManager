@@ -32,7 +32,7 @@ namespace ClinicManager.API.Extensions
         {
             services.AddTransient<IEmailService, EmailService>();
             services.AddTransient<ICalendarServices, CalendarServices>();
-            services.AddTransient<MeuJob>();
+            services.AddTransient<NotificationEmailTask>();
 
             return services;
         }
