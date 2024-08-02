@@ -4,6 +4,7 @@ using ClinicManager.Core.Enums;
 using ClinicManager.Core.Repositores;
 using ClinicManager.Core.Services.Calendar;
 using ClinicManager.Core.Services.Email;
+using ClinicManager.Core.Services.Sms;
 using MediatR;
 
 namespace ClinicManager.Application.Commands.CreateCare
@@ -16,7 +17,8 @@ namespace ClinicManager.Application.Commands.CreateCare
         private readonly IEmailService _emailService;
         private readonly ICalendarServices _calendarServices;
         private readonly IServiceRepository _serviceRepository;
-        public CreateCareCommandHandler(ICareRepository careRepository, IEmailService emailService, ICalendarServices calendarServices, IDoctorRepository doctorRepository, IPatientRepository patientRepository, IServiceRepository serviceRepository)
+        private readonly ISmsService _smsService;
+        public CreateCareCommandHandler(ICareRepository careRepository, IEmailService emailService, ICalendarServices calendarServices, IDoctorRepository doctorRepository, IPatientRepository patientRepository, IServiceRepository serviceRepository, ISmsService smsService)
         {
             _careRepository = careRepository;
             _emailService = emailService;
@@ -24,6 +26,7 @@ namespace ClinicManager.Application.Commands.CreateCare
             _doctorRepository = doctorRepository;
             _patientRepository = patientRepository;
             _serviceRepository = serviceRepository;
+            _smsService = smsService;
         }
         public async Task<int> Handle(CreateCareCommand request, CancellationToken cancellationToken)
         {
@@ -32,7 +35,7 @@ namespace ClinicManager.Application.Commands.CreateCare
             var patient = await _patientRepository.GetByIdAsync(request.PatientId);
             var doctor = await _doctorRepository.GetByIdAsync(request.MedicalId);
             _emailService.Send(patient.FirstName, patient.Email, service.Name, service.Description, request.Start.ToString(), doctor.FirstName, doctor.Email);
-
+            await _smsService.SendSMS("TESTE", patient.Telephone);
             if (request.TypeService is TypeServiceENUM.Online)
             {
                 var scheduled = new GoogleCalendarDTO

@@ -3,8 +3,10 @@ using ClinicManager.Application.Job;
 using ClinicManager.Core.Repositores;
 using ClinicManager.Core.Services.Calendar;
 using ClinicManager.Core.Services.Email;
+using ClinicManager.Core.Services.Sms;
 using ClinicManager.Infrastructure.Persistence.Repositories;
 using ClinicManager.Infrastructure.Persistence.Services.Calendar;
+using ClinicManager.Infrastructure.Persistence.Services.Sms;
 
 namespace ClinicManager.API.Extensions
 {
@@ -32,6 +34,7 @@ namespace ClinicManager.API.Extensions
         {
             services.AddTransient<IEmailService, EmailService>();
             services.AddTransient<ICalendarServices, CalendarServices>();
+            services.AddTransient<ISmsService, SmsService>();
             services.AddTransient<NotificationEmailTask>();
 
             return services;
