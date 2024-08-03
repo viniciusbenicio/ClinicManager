@@ -35,7 +35,8 @@ namespace ClinicManager.Application.Commands.CreateCare
             var patient = await _patientRepository.GetByIdAsync(request.PatientId);
             var doctor = await _doctorRepository.GetByIdAsync(request.MedicalId);
             _emailService.Send(patient.FirstName, patient.Email, service.Name, service.Description, request.Start.ToString(), doctor.FirstName, doctor.Email);
-            await _smsService.SendSMS("TESTE", patient.Telephone);
+
+            await _smsService.SendSMS($"Sua consulta de {service.Name} está agendada para o dia {request.Start}", patient.Telephone);
             if (request.TypeService is TypeServiceENUM.Online)
             {
                 var scheduled = new GoogleCalendarDTO
