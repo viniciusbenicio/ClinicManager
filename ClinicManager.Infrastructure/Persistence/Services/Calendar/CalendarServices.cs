@@ -14,24 +14,22 @@ namespace ClinicManager.Infrastructure.Persistence.Services.Calendar
 
         public CalendarServices()
         {
-            
+
         }
 
         public async Task<CalendarService> ConnectGoogleAgenda(string[] scopes)
         {
             string applicationName = "Calendar Clinic Manager";
             UserCredential credential;
-            using (var stream = new FileStream(Path.Combine(Directory.GetCurrentDirectory(), "Credential", "cred.json"), FileMode.Open, FileAccess.Read))
+            string credPath = "token.json";
+
+            var clientSecrets = new ClientSecrets
             {
-                string credPath = "token.json";
-                credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
-                        GoogleClientSecrets.FromStream(stream).Secrets,
-                        scopes,
-                        "user",
-                        CancellationToken.None,
-                        new FileDataStore(credPath, true)
-                );
-            }
+                ClientId = ClinicManager.Core.Entities.Configuration.Calendar.Web.ClientId,
+                ClientSecret = ClinicManager.Core.Entities.Configuration.Calendar.Web.ClientSecret,
+            };
+
+            credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(clientSecrets, scopes, "user", CancellationToken.None, new FileDataStore(credPath, true));
 
             var services = new CalendarService(new BaseClientService.Initializer()
             {

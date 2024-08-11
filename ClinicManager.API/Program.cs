@@ -45,6 +45,15 @@ var smtp = new Configuration.SmtpConfiguracao();
 app.Configuration.GetSection("Smtp").Bind(smtp);
 Configuration.Smtp = smtp;
 
+var sms = new Configuration.SmsConfiguracao();
+app.Configuration.GetSection("Sms").Bind(sms);
+Configuration.Sms = sms;
+
+var calendar = new Configuration.GoogleConfiguracao();
+app.Configuration.GetSection("Calendar").Bind(calendar);
+Configuration.Calendar = calendar;
+
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
