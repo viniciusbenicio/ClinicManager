@@ -8,6 +8,7 @@ namespace ClinicManager.API.Controllers
 {
     [Route("api/users")]
     [ApiController]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly IMediator _mediatR;
@@ -27,6 +28,7 @@ namespace ClinicManager.API.Controllers
 
 
         [HttpPut("login")]
+        [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginUserCommand command)
         {
             var loginUserViewModel = await _mediatR.Send(command);
