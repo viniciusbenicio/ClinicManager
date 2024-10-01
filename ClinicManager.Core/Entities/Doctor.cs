@@ -34,7 +34,9 @@ namespace ClinicManager.Core.Entities
         public string Specialty { get; private set; }
         public string CRMRegistration { get; private set; }
         public bool Active { get; private set; }
-
+        // Foreign key para associar ao usuário
+        public int UserId { get; set; }
+        public User User { get; set; } // Propriedade de navegação para o usuário associado
         public void Update(string firstName, string lastName, DateTime dateOfBirth, string telephone, string email, string document, string bloodtype, string height, string weight, string address, string specialty, string cRMRegistration)
         {
             FirstName = firstName;

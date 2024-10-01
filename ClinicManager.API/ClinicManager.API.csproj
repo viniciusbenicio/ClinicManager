@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\TasksController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="Credential\cred.json" />
   </ItemGroup>
 
