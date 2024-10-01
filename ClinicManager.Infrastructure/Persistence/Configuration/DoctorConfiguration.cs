@@ -23,6 +23,10 @@ namespace ClinicManager.Infrastructure.Persistence.Configuration
             builder.Property(x => x.Address).HasColumnName("Address").HasColumnType("varchar").HasMaxLength(100).IsRequired();
             builder.Property(x => x.Specialty).HasColumnName("Specialty").HasColumnType("varchar").HasMaxLength(100).IsRequired();
             builder.Property(x => x.CRMRegistration).HasColumnName("CRMRegistration").HasColumnType("varchar").HasMaxLength(100).IsRequired();
+
+
+            builder.HasOne(x => x.User).WithOne(u => u.Doctor).HasForeignKey<Doctor>(x => x.UserId).OnDelete(DeleteBehavior.NoAction);
+
         }
     }
 }

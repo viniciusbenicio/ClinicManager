@@ -1,9 +1,12 @@
 ﻿using ClinicManager.Application.Commands.CreatePatient;
 using ClinicManager.Application.Job;
 using ClinicManager.Core.Repositores;
+using ClinicManager.Core.Services;
+using ClinicManager.Core.Services.Auth;
 using ClinicManager.Core.Services.Calendar;
 using ClinicManager.Core.Services.Email;
 using ClinicManager.Core.Services.Sms;
+using ClinicManager.Infrastructure.Auth;
 using ClinicManager.Infrastructure.Persistence.Repositories;
 using ClinicManager.Infrastructure.Persistence.Services.Calendar;
 using ClinicManager.Infrastructure.Persistence.Services.Sms;
@@ -34,7 +37,9 @@ namespace ClinicManager.API.Extensions
         {
             services.AddTransient<IEmailService, EmailService>();
             services.AddTransient<ICalendarServices, CalendarServices>();
+            services.AddScoped<IAuthService, AuthService>();
             services.AddTransient<ISmsService, SmsService>();
+            services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<NotificationEmailTask>();
 
             return services;
