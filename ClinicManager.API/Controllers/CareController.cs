@@ -4,6 +4,7 @@ using ClinicManager.Application.Commands.UpdateCare;
 using ClinicManager.Application.Queries.GetAllCares;
 using ClinicManager.Application.Queries.GetByIdCare;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClinicManager.API.Controllers
@@ -19,6 +20,7 @@ namespace ClinicManager.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Administrator, Doctor, Receptionist")]
         public async Task<IActionResult> Get()
         {
             var query = new GetAllCaresQuery();
@@ -29,6 +31,7 @@ namespace ClinicManager.API.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Administrator, Doctor, Receptionist")]
         public async Task<IActionResult> GetById(int id)
         {
             var query = new GetByIdCareQuery(id);
@@ -39,6 +42,7 @@ namespace ClinicManager.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Post(CreateCareCommand command)
         {
             var id = await _mediator.Send(command);
@@ -47,6 +51,7 @@ namespace ClinicManager.API.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Put(UpdateCareCommand command)
         {
             await _mediator.Send(command);
@@ -55,6 +60,7 @@ namespace ClinicManager.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Delete(int id)
         {
 
