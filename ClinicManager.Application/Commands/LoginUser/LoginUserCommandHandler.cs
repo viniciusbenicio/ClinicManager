@@ -19,7 +19,7 @@ namespace ClinicManager.Application.Commands.LoginUser
         {
             var passwordHash = _authService.ComputeSha256Hash(request.Password);
 
-            var user = await _userRepository.GetUserByEmailAndPasswordAsync(request.UserName, passwordHash);
+            var user = await _userRepository.GetUserByUserNameAndPasswordAsync(request.UserName, passwordHash);
 
             if (user is null)
                 return null;
