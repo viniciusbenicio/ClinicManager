@@ -24,7 +24,6 @@ namespace ClinicManager.Infrastructure.Persistence.Repositories
         public async Task AddAsync(Doctor doctor)
         {
             await _context.Doctors.AddAsync(doctor);
-            await _context.SaveChangesAsync();
         }
 
         public async Task Update(Doctor doctor)

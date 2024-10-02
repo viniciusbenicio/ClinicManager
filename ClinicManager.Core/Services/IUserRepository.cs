@@ -10,6 +10,6 @@ namespace ClinicManager.Core.Services
         void Update(User user);
         Task SaveChangesAsync();
         Task<int> RemoveAsync(int id);
-        Task<User> GetUserByEmailAndPasswordAsync(string email, string passwordHash);
+        Task<User> GetUserByUserNameAndPasswordAsync(string userName, string passwordHash);
     }
 }

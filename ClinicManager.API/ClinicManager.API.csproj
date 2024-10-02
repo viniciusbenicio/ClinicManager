@@ -7,11 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Controllers\TasksController.cs" />
+    <Compile Remove="Credential\**" />
+    <Content Remove="Credential\**" />
+    <EmbeddedResource Remove="Credential\**" />
+    <None Remove="Credential\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="Credential\cred.json" />
+    <Compile Remove="Controllers\TasksController.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,10 +30,6 @@
   <ItemGroup>
     <ProjectReference Include="..\ClinicManager.Application\ClinicManager.Application.csproj" />
     <ProjectReference Include="..\ClinicManager.Core\ClinicManager.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Credential\cred.json" />
   </ItemGroup>
 
 </Project>

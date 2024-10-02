@@ -15,7 +15,6 @@ namespace ClinicManager.Infrastructure.Persistence.Configuration
             builder.Property(x => x.RoleId).HasColumnName("RoleId").HasColumnType("int").IsRequired().ValueGeneratedOnAdd();
             builder.Property(x => x.RoleName).HasColumnName("RoleName").HasColumnType("varchar").HasMaxLength(50).IsRequired();
 
-            // Relacionamento com Users
             builder.HasMany(x => x.Users).WithOne(u => u.Role).HasForeignKey(u => u.RoleId);
         }
     }

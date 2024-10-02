@@ -24,7 +24,7 @@ namespace ClinicManager.Application.Commands
 
             await _userRepository.AddAsync(user);
 
-            return user.Id;
+            return user.UserId;
         }
     }
 }

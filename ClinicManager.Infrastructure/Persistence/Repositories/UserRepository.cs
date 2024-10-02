@@ -20,7 +20,7 @@ namespace ClinicManager.Infrastructure.Persistence.Repositories
 
         public async Task<User> GetByIdAsync(int id)
         {
-            return await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Users.FirstOrDefaultAsync(x => x.UserId == id);
 
         }
 
@@ -43,17 +43,17 @@ namespace ClinicManager.Infrastructure.Persistence.Repositories
         }
         public async Task<int> RemoveAsync(int id)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.UserId == id);
             _context.Remove(user);
 
             await _context.SaveChangesAsync();
 
-            return user.Id;
+            return user.UserId;
         }
 
-        public async Task<User> GetUserByEmailAndPasswordAsync(string email, string passwordHash)
+        public async Task<User> GetUserByUserNameAndPasswordAsync(string userName, string passwordHash)
         {
-            return await _context.Users.SingleOrDefaultAsync(u => u.Username == email && u.PasswordHash == passwordHash);
+            return await _context.Users.SingleOrDefaultAsync(u => u.Username == userName && u.PasswordHash == passwordHash);
         }
     }
 }
