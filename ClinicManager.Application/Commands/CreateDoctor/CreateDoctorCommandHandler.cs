@@ -13,7 +13,7 @@ namespace ClinicManager.Application.Commands.CreateDoctor
         }
         public async Task<int> Handle(CreateDoctorCommand request, CancellationToken cancellationToken)
         {
-            var doctor = new Doctor(request.FirstName, request.LastName, request.DateOfBirth, request.Telephone, request.Email, request.Document, request.Bloodtype, request.Height, request.Weight, request.Address, request.Specialty, request.CRMRegistration);
+            var doctor = new Doctor(request.Specialty, request.CRMRegistration);
 
             await _doctorRepository.AddAsync(doctor);
             await _doctorRepository.SaveChangesAsync();

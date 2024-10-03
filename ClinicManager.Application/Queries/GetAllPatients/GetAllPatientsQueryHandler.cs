@@ -17,12 +17,13 @@ namespace ClinicManager.Application.Queries.GetAllPatients
 
             if (!string.IsNullOrEmpty(request.Query))
             {
-               patients = patients.Where(x => x.Document.Contains(request.Query) || x.Telephone.Contains(request.Query)).ToList();    
+               //patients = patients.Where(x => x.Document.Contains(request.Query) || x.Telephone.Contains(request.Query)).ToList();    
             }
 
-            var patientsViewModel = patients.Where(l => l.Active == true).Select(p => new PatientViewModel(p.FirstName, p.LastName, p.DateOfBirth, p.Telephone, p.Email, p.Document, p.Bloodtype, p.Height, p.Weight, p.Address)).ToList();
+            //var patientsViewModel = patients.Where(l => l.Active == true).Select(p => new PatientViewModel(p.FirstName, p.LastName, p.DateOfBirth, p.Telephone, p.Email, p.Document, p.Bloodtype, p.Height, p.Weight, p.Address)).ToList();
 
-            return patientsViewModel;
+            //return patientsViewModel;
+            return null;
 
         }
     }

@@ -14,7 +14,7 @@ namespace ClinicManager.Application.Commands.UpdatePatient
         {
             var patient = await _patientRepository.GetByIdAsync(request.Id);
 
-            patient.Update(request.FirstName, request.LastName, request.DateOfBirth, request.Telephone, request.Email, request.Document, request.Bloodtype, request.Height, request.Weight, request.Address);
+            //patient.Update(request.FirstName, request.LastName, request.DateOfBirth, request.Telephone, request.Email, request.Document, request.Bloodtype, request.Height, request.Weight, request.Address);
 
             await _patientRepository.SaveChangesAsync();
 

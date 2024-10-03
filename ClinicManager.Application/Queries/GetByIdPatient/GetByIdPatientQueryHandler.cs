@@ -16,9 +16,10 @@ namespace ClinicManager.Application.Queries.GetByIdPatient
         {
             var patients = await _patientRepository.GetByIdAsync(request.Id);
 
-            var patientViewModels = new PatientViewModel(patients.FirstName, patients.LastName, patients.DateOfBirth, patients.Telephone, patients.Email, patients.Document, patients.Bloodtype, patients.Height, patients.Weight, patients.Address);
+            //var patientViewModels = new PatientViewModel(patients.FirstName, patients.LastName, patients.DateOfBirth, patients.Telephone, patients.Email, patients.Document, patients.Bloodtype, patients.Height, patients.Weight, patients.Address);
 
-            return patientViewModels;
+            return null;
+            //return patientViewModels;
         }
     }
 }

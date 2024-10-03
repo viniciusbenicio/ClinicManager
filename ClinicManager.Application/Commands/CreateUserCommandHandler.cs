@@ -20,11 +20,11 @@ namespace ClinicManager.Application.Commands
         {
             var passwordHash = _authService.ComputeSha256Hash(request.Password);
 
-            var user = new User(request.UserName, passwordHash, request.RoleId);
+            var user = new User("", "", "", "", "", "", "", "", "", "", "", true, DateTime.Now);
 
             await _userRepository.AddAsync(user);
 
-            return user.UserId;
+            return user.Id;
         }
     }
 }

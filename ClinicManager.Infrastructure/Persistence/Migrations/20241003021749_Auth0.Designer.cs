@@ -4,6 +4,7 @@ using ClinicManager.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ClinicManager.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ClinicManagerDBContext))]
-    partial class ClinicManagerDBContextModelSnapshot : ModelSnapshot
+    [Migration("20241003021749_Auth0")]
+    partial class Auth0
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -119,13 +122,68 @@ namespace ClinicManager.Infrastructure.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar")
+                        .HasColumnName("Address");
+
+                    b.Property<string>("Bloodtype")
+                        .IsRequired()
+                        .HasMaxLength(2)
+                        .HasColumnType("varchar")
+                        .HasColumnName("Bloodtype");
+
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime")
+                        .HasColumnName("DateOfBirth");
+
+                    b.Property<string>("Document")
+                        .IsRequired()
+                        .HasMaxLength(11)
+                        .HasColumnType("varchar")
+                        .HasColumnName("Document");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar")
+                        .HasColumnName("Email");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar")
+                        .HasColumnName("FirstName");
+
+                    b.Property<string>("Height")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("varchar")
+                        .HasColumnName("Height");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar")
+                        .HasColumnName("LastName");
+
+                    b.Property<string>("Telephone")
+                        .IsRequired()
+                        .HasMaxLength(11)
+                        .HasColumnType("varchar")
+                        .HasColumnName("Telephone");
+
+                    b.Property<string>("Weight")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("varchar")
+                        .HasColumnName("Weight");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
 
                     b.ToTable("Patients", "dbo");
                 });
@@ -318,17 +376,6 @@ namespace ClinicManager.Infrastructure.Persistence.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("ClinicManager.Core.Entities.Patient", b =>
-                {
-                    b.HasOne("ClinicManager.Core.Entities.User", "User")
-                        .WithOne("Patient")
-                        .HasForeignKey("ClinicManager.Core.Entities.Patient", "UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("ClinicManager.Core.Entities.User", b =>
                 {
                     b.HasOne("ClinicManager.Core.Entities.Role", "Role")
@@ -348,9 +395,6 @@ namespace ClinicManager.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("ClinicManager.Core.Entities.User", b =>
                 {
                     b.Navigation("Doctor")
-                        .IsRequired();
-
-                    b.Navigation("Patient")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

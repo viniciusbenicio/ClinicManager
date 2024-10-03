@@ -15,7 +15,7 @@ namespace ClinicManager.Application.Queries.GetAllDoctors
         {
             var doctors = await _doctorRepository.GetAllAsync();
 
-            var doctorsViewModel = doctors.Where(l => l.Active == true).Select(d => new DoctorViewModel(d.FirstName, d.LastName, d.DateOfBirth, d.Telephone, d.Email, d.Document, d.Bloodtype, d.Height, d.Weight, d.Address, d.Specialty, d.CRMRegistration)).ToList();
+            var doctorsViewModel = doctors.Select(d => new DoctorViewModel(d.Specialty, d.CRMRegistration)).ToList();
 
             return doctorsViewModel;
 

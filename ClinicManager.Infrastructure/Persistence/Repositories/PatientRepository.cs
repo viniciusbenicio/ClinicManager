@@ -50,16 +50,18 @@ namespace ClinicManager.Infrastructure.Persistence.Repositories
 
         public async Task<Patient> GetByDocument(string document)
         {
-            var patient = await _context.Patients.FirstOrDefaultAsync(x => x.Document == document);
+            //var patient = await _context.Patients.FirstOrDefaultAsync(x => x.Document == document);
 
-            return patient;
+            return null;
+            //return patient;
         }
 
         public async Task<Patient> GetByTelphone(string number)
         {
-            var patient = await _context.Patients.FirstOrDefaultAsync(x => x.Telephone == number);
+            //var patient = await _context.Patients.FirstOrDefaultAsync(x => x.Telephone == number);
 
-            return patient;
+            //return patient;
+            return null;
         }
     }
 }

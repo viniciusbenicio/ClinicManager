@@ -16,7 +16,7 @@ namespace ClinicManager.Application.Queries.GetByIdDoctor
         {
             var doctor = await _doctorRepository.GetByIdAsync(request.Id);
 
-            var doctorViewModels = new DoctorViewModel(doctor.FirstName, doctor.LastName, doctor.DateOfBirth, doctor.Telephone, doctor.Email, doctor.Document, doctor.Bloodtype, doctor.Height, doctor.Weight, doctor.Address, doctor.Specialty, doctor.CRMRegistration);
+            var doctorViewModels = new DoctorViewModel(doctor.Specialty, doctor.CRMRegistration);
 
             return doctorViewModels;
         }

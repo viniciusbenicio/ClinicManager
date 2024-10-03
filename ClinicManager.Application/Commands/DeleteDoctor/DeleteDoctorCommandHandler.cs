@@ -14,7 +14,6 @@ namespace ClinicManager.Application.Commands.DeleteDoctor
         {
             var doctor = await _doctorRepository.GetByIdAsync(request.Id);
 
-            doctor?.Remove();
 
             await _doctorRepository.SaveChangesAsync();
         }
