@@ -20,7 +20,7 @@ namespace ClinicManager.Application.Commands
         {
             var passwordHash = _authService.ComputeSha256Hash(request.Password);
 
-            var user = new User("", "", "", "", "", "", "", "", "", "", "", true, DateTime.Now);
+            var user = new User("","", DateTime.Now, "", "", "", "", "", "", "", "", "", true);
 
             await _userRepository.AddAsync(user);
 

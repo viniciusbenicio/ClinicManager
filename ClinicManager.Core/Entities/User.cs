@@ -2,6 +2,23 @@
 {
     public class User : Entity
     {
+        public User(string firstName, string lastName, DateTime dateOfBirth, string bloodtype, string height, string weight, string document, string email, string telephone, string address, string username, string passwordHash, bool active)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            DateOfBirth = dateOfBirth;
+            Bloodtype = bloodtype;
+            Height = height;
+            Weight = weight;
+            Document = document;
+            Email = email;
+            Telephone = telephone;
+            Address = address;
+            Username = username;
+            PasswordHash = passwordHash;
+            Active = active;
+        }
+
         public string FirstName { get; private set; } = string.Empty;
         public string LastName { get; private set; } = string.Empty;
         public DateTime DateOfBirth { get; private set; }
