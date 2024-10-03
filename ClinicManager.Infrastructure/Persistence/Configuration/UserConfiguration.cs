@@ -8,10 +8,6 @@ namespace ClinicManager.Infrastructure.Persistence.Configuration
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.ToTable("Users", "dbo");
-
-            builder.HasKey(x => x.Id);
-
             builder.Property(x => x.Id).HasColumnName("Id").HasColumnType("int").IsRequired().ValueGeneratedOnAdd();
             builder.Property(x => x.FirstName).HasColumnName("FirstName").HasColumnType("varchar").HasMaxLength(30).IsRequired();
             builder.Property(x => x.LastName).HasColumnName("LastName").HasColumnType("varchar").HasMaxLength(50).IsRequired();
@@ -27,11 +23,8 @@ namespace ClinicManager.Infrastructure.Persistence.Configuration
             builder.Property(x => x.PasswordHash).HasColumnName("PasswordHash").HasColumnType("varchar").HasMaxLength(255).IsRequired();
 
             builder.HasOne(x => x.Role).WithMany(r => r.Users).HasForeignKey(x => x.RoleId);
-
             builder.HasOne(x => x.Doctor).WithOne(d => d.User).HasForeignKey<Doctor>(d => d.UserId);
-            builder.HasOne(x => x.Patient).WithOne(d => d.User).HasForeignKey<Patient>(d => d.UserId);
+            builder.HasOne(x => x.Patient).WithOne(p => p.User).HasForeignKey<Patient>(p => p.UserId);
         }
-
-
     }
 }
